@@ -24,7 +24,7 @@ async function lootList(type, lang) {
 }
 
 async function lootListDefault(lang) {
-    lang = lang || 'en';
+    lang = lang || global.defaultLanguage;
     if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
     let isGlobalEmpty = false;
 
@@ -71,7 +71,7 @@ async function lootListDefault(lang) {
 }
 
 async function lootListEnabled(lang) {
-    lang = lang || 'en';
+    lang = lang || global.defaultLanguage;
     if(!isLang(lang)) return false;
     let isGlobalEmpty = false;
 

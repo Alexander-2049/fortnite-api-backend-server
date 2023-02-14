@@ -35,8 +35,8 @@ async function eventsList(type, params) {
 }
 
 async function eventsListDefault(params) {
-    let lang = params.lang || 'en';
-    let region = params.region || 'EU';
+    let lang = params.lang || global.defaultLanguage;
+    let region = params.region || global.defaultRegion;
 
     if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
     if(!isRegion(region)) throw new Error(`"${region}" region does not exist`);
@@ -87,8 +87,8 @@ async function eventsListDefault(params) {
 }
 
 async function eventsListActive(params) {
-    let lang = params.lang || 'en';
-    let region = params.region || 'EU';
+    let lang = params.lang || global.defaultLanguage;
+    let region = params.region || global.defaultRegion;
 
     if(!isLang(lang)) return false;
     if(!isRegion(region)) return false;
@@ -139,8 +139,8 @@ async function eventsListActive(params) {
 }
 
 async function eventsListLive(params) {
-    let lang = params.lang || 'en';
-    let region = params.region || 'EU';
+    let lang = params.lang || global.defaultLanguage;
+    let region = params.region || global.defaultRegion;
 
     if(!isLang(lang)) return false;
     if(!isRegion(region)) return false;

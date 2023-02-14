@@ -4,7 +4,7 @@ const didTimePassed = require("../utils/didTimePassed");
 const apiRequest = require("../utils/apiRequest");
 const isLang = require("../utils/isLang");
 
-async function augments(lang = 'en') {
+async function augments(lang = global.defaultLanguage) {
     if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
 
     let isGlobalEmpty = false;

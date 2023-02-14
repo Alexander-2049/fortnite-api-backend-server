@@ -5,9 +5,10 @@ require('dotenv').config();
 
 require('./global');
 
-const PORT = process.env.PORT || 4747;
+
 
 const lootListHitory = require('./api/lootListHistory');
+const tests = require('../tests');
 lootListHitory.init();
 
 // app.use(require('./middleware/serverLoad'));
@@ -23,8 +24,13 @@ app.get('*', (req, res) => {
      .json('not found');
 });
   
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`)
+app.listen(global.PORT, async () => {
+    console.log(`Server is running on port ${global.PORT}`)
+
+    if(process.argv.includes('--test')) {
+        await tests.all();
+        process.exit(1);
+    }
 });
 
 process.on('uncaughtException', function (err) {

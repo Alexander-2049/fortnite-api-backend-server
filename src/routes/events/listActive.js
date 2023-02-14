@@ -1,8 +1,8 @@
 const eventsList = require("../../api/eventsList");
 
 const listActive = async (req, res) => {
-    const region = req.query.region || 'EU';
-    const lang = req.query.lang || 'en';
+    const region = req.query.region || global.defaultRegion;
+    const lang = req.query.lang || global.defaultLanguage;
 
     let data;
     

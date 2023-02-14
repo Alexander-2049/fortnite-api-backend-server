@@ -27,7 +27,8 @@ async function init() {
     global.lootListHistory.loading = false;
 
     checkForUpdates();
-    setInterval(checkForUpdates, 120 * 1000);
+    const SECONDS = 120;
+    setInterval(checkForUpdates, SECONDS * 1000);
 }
 
 async function checkForUpdates() {
@@ -44,8 +45,6 @@ async function checkForUpdates() {
     if(!apiData) return console.warn('Request to fortniteapi.io has failed. Check API-KEY in .env file.');
 
     global.lootListHistory.now = apiData;
-
-    // compare global.lootListHistory.now with global.lootListHistory.previous
 
     let difference = getDifference(global.lootListHistory.now, global.lootListHistory.previous);
     if(difference) {

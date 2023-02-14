@@ -2,10 +2,11 @@
   "name": "fortnite-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/main.js",
   "scripts": {
-    "start": "node ./main.js",
-    "dev": "nodemon --ignore ./data/ --exec node ./main.js"
+    "start": "node ./src/main.js",
+    "dev": "nodemon --ignore ./src/data/ --exec node ./src/main.js",
+    "test": "node ./src/main.js --test"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
 const augmentsApi = require("../../api/augments");
 
 const augmentsRoute = async (req, res) => {
-    const lang = req.query.lang || 'en';
+    const lang = req.query.lang || global.defaultLanguage;
 
     try {
         data = await augmentsApi(lang)
