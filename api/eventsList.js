@@ -11,21 +11,25 @@ const apiRequest = require("../utils/apiRequest");
  */
 async function eventsList(type, params) {
     let result = false;
-    switch (type) {
-        case 'default':
-            result = await eventsListDefault(params);
-            break;
-
-        case 'active':
-            result = await eventsListActive(params);
-            break;
-
-        case 'live':
-            result = await eventsListLive(params);
-            break;
-        
-        default:
-            break;
+    try {
+        switch (type) {
+            case 'default':
+                result = await eventsListDefault(params);
+                break;
+    
+            case 'active':
+                result = await eventsListActive(params);
+                break;
+    
+            case 'live':
+                result = await eventsListLive(params);
+                break;
+            
+            default:
+                break;
+        }
+    } catch (error) {
+        throw new Error(error.message);
     }
     return result;
 }
@@ -34,8 +38,8 @@ async function eventsListDefault(params) {
     let lang = params.lang || 'en';
     let region = params.region || 'EU';
 
-    if(!isLang(lang)) return false;
-    if(!isRegion(region)) return false;
+    if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
+    if(!isRegion(region)) throw new Error(`"${region}" region does not exist`);
 
     let isGlobalEmpty = false;
 
@@ -62,13 +66,18 @@ async function eventsListDefault(params) {
     
     let uri = `https://fortniteapi.io/v1/events/list?lang=${lang}&region=${region}`;
 
-    let data = await apiRequest(uri);
+    let data;
+    try {
+        data = await apiRequest(uri);
+    } catch (error) {
+        data = false;
+    }
 
     if(!data) {
         if(!isGlobalEmpty) return global.tournaments.default[lang][region];
         
         global.tournaments.default[lang][region] = false;
-        return false;
+        throw new Error("API server does not answer. Local storage is empty.");
     }
     
     let obj = {lastUpdate: Date.now(), ...data};
@@ -109,13 +118,18 @@ async function eventsListActive(params) {
     
     let uri = `https://fortniteapi.io/v1/events/list/active?lang=${lang}&region=${region}`;
 
-    let data = await apiRequest(uri);
+    let data;
+    try {
+        data = await apiRequest(uri);
+    } catch (error) {
+        data = false;
+    }
 
     if(!data) {
         if(!isGlobalEmpty) return global.tournaments.active[lang][region];
         
         global.tournaments.active[lang][region] = false;
-        return false;
+        throw new Error("API server does not answer. Local storage is empty.");
     }
     
     let obj = {lastUpdate: Date.now(), ...data};
@@ -156,13 +170,18 @@ async function eventsListLive(params) {
     
     let uri = `https://fortniteapi.io/v1/events/list/live?lang=${lang}&region=${region}`;
 
-    let data = await apiRequest(uri);
+    let data;
+    try {
+        data = await apiRequest(uri);
+    } catch (error) {
+        data = false;
+    }
 
     if(!data) {
         if(!isGlobalEmpty) return global.tournaments.live[lang][region];
         
         global.tournaments.live[lang][region] = false;
-        return false;
+        throw new Error("API server does not answer. Local storage is empty.");
     }
     
     let obj = {lastUpdate: Date.now(), ...data};

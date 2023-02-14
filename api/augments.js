@@ -5,7 +5,7 @@ const apiRequest = require("../utils/apiRequest");
 const isLang = require("../utils/isLang");
 
 async function augments(lang = 'en') {
-    if(!isLang(lang)) return false;
+    if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
 
     let isGlobalEmpty = false;
 
@@ -31,13 +31,18 @@ async function augments(lang = 'en') {
     
     let uri = `https://fortniteapi.io/v1/game/augments?lang=${lang}`;
 
-    let data = await apiRequest(uri);
+    let data;
+    try {
+        data = await apiRequest(uri);        
+    } catch (error) {
+        data = false;
+    }
 
     if(!data) {
         if(!isGlobalEmpty) return global.augments[lang];
         
         global.augments[lang] = false;
-        return false;
+        throw new Error("API server does not answer. Local storage is empty.");
     }
     
     let obj = {lastUpdate: Date.now(), ...data};

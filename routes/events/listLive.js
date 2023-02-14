@@ -4,13 +4,15 @@ const listLive = async (req, res) => {
     const region = req.query.region || 'EU';
     const lang = req.query.lang || 'en';
 
-    let data = await eventsList('live', {
-        region,
-        lang
-    })
+    let data;
 
-    if(!data) {
-        return res.status(500).json({error: true})
+    try {
+        data = await eventsList('live', {
+            region,
+            lang
+        });
+    } catch (error) {
+        return res.status(500).json({error: true, errorMessage: error.message});
     }
 
     return res.json(data)

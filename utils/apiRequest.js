@@ -11,15 +11,19 @@ async function apiRequest(uri) {
             },
         });
 
-        if(response.status !== 200) return false;
+        if(response.status !== 200) throw new Error(`Status code: ${response.status}. Request failed.`);
 
         const data = await response.json();
 
-        if(!data.result) return false;
+        if(!data.result) {
+            console.error(`${uri}\n${data}`);
+            throw new Error("result: false")
+        }
 
         return data;
     } catch (error) {
-        console.warn(error)
+        console.error(error);
+        throw new Error(error.message);
     }
 }
 

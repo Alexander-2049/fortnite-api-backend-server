@@ -4,10 +4,12 @@ const lootList = async (req, res) => {
     const lang = req.query.lang || 'en';
     const type = req.query.enabled ? 'enabled' : 'default';
 
-    let data = await lootListApi(type, lang)
+    let data;
 
-    if(!data) {
-        return res.status(500).json({error: true})
+    try {
+        data = await lootListApi(type, lang);
+    } catch (error) {
+        return res.status(500).json({error: true, errorMessage: error.message});
     }
 
     return res.json(data)

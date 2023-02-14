@@ -9,17 +9,28 @@ async function eventWindow(windowId) {
     let events;
 
     if(windowLimited) {
-        events = await eventsList('active', {
-            region: 'ALL'
-        });
+        try {
+            events = await eventsList('active', {
+                region: 'ALL'
+            });
+        } catch (error) {
+            throw new Error(`Cannot get events list - ${error.message}`)
+        }
     } else {
-        events = await eventsList('default', {
-            region: 'ALL'
-        });
+        try {
+            events = await eventsList('default', {
+                region: 'ALL'
+            });
+        } catch (error) {
+            throw new Error(`Cannot get events list - ${error.message}`)
+        }
     }
     const windows = getAllWindowsFromEvents(events)
 
-    if(!windows.includes(windowId)) return false;
+    if(!windows.includes(windowId)) {
+        if(windowLimited) throw new Error(`${windowId} session does not exist or is not active.`);
+        if(!windowLimited) throw new Error(`${windowId} session does not exist.`);
+    }
 
     let isGlobalEmpty = false;
 
@@ -46,13 +57,19 @@ async function eventWindow(windowId) {
 
     let uri = `https://fortniteapi.io/v1/events/window?windowId=${windowId}`;
 
-    let data = await apiRequest(uri);
+    let data;
+
+    try {
+        data = await apiRequest(uri);
+    } catch (error) {
+        data = false;
+    }
 
     if(!data) {
         if(!isGlobalEmpty) return global.tournamentSessionDetails[windowId];
         
         global.tournamentSessionDetails[windowId] = false;
-        return false;
+        throw new Error("API server does not answer. Local storage is empty.");
     }
     
     let obj = {lastUpdate: Date.now(), ...data};

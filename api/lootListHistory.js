@@ -5,7 +5,7 @@ const apiRequest = require('../utils/apiRequest');
  * @description returns an Array with all changes that have been saved
  */
 async function lootListHistory() {
-    if(global.lootListHistory.loading) return false;
+    if(global.lootListHistory.loading) throw new Error("Loot list history is loading at this moment. Try again later.");
     return global.lootListHistory.history;
 }
 
@@ -34,7 +34,14 @@ async function checkForUpdates() {
 
     let uri = `https://fortniteapi.io/v1/loot/list?lang=en`;
 
-    let apiData = await apiRequest(uri);
+    let apiData;
+    try {
+        apiData = await apiRequest(uri);
+    } catch (error) {
+        console.error(error);
+    }
+    
+    if(!apiData) return console.warn('Request to fortniteapi.io has failed. Check API-KEY in .env file.');
 
     global.lootListHistory.now = apiData;
 
@@ -97,7 +104,14 @@ async function firstInit() {
 
     let uri = `https://fortniteapi.io/v1/loot/list?lang=en`;
 
-    let apiData = await apiRequest(uri);
+    let apiData;
+    try {
+        apiData = await apiRequest(uri);
+    } catch (error) {
+        console.error(error);
+    }
+
+    if(!apiData) return console.warn('Request to fortniteapi.io has failed. Check API-KEY in .env file.');
 
     await savePrevious(apiData);
     global.lootListHistory.now = apiData;

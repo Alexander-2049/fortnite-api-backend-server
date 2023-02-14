@@ -15,6 +15,7 @@ global.tournaments = {
     live: {}
 };
 global.tournamentSessionDetails = {};
+global.tournamentSessionScoring = {};
 // global.tournamentScores = null;
 // global.currentMap = null;
 // global.currentMapWithPOINames = null;
