@@ -5,6 +5,7 @@ const apiRequest = require("../utils/apiRequest");
 const isLang = require("../utils/isLang");
 
 async function augments(lang = global.defaultLanguage) {
+    lang = lang.toLowerCase();
     if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
 
     let isGlobalEmpty = false;

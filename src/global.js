@@ -4,6 +4,7 @@ global.PORT = process.env.PORT || 4747;
 global.localhost = `http://localhost:${global.PORT}`;
 global.languages = ['en', 'fr', 'ar', 'de', 'es', 'es-419', 'it', 'ja', 'ko', 'pl', 'pt-br', 'ru', 'tr'];
 global.defaultLanguage = 'en';
+global.defaultRegion = 'EU';
 
 // Defining global values
 // global.challanges = null;

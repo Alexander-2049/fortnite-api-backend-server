@@ -6,7 +6,7 @@ const apiRequest = require("../utils/apiRequest");
  * @param {string} type "default", "enabled"
  * @param {string} lang en, fr, ar, de, es, es-419, it, ja, ko, pl, pt-br, ru, tr
  */
-async function lootList(type, lang) {
+async function lootList(type, lang = global.defaultLanguage) {
     let result = false;
     switch (type) {
         case 'default':
@@ -24,7 +24,7 @@ async function lootList(type, lang) {
 }
 
 async function lootListDefault(lang) {
-    lang = lang || global.defaultLanguage;
+    lang = lang.toLowerCase();
     if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
     let isGlobalEmpty = false;
 
@@ -70,8 +70,8 @@ async function lootListDefault(lang) {
     return global.lootList.default[lang];
 }
 
-async function lootListEnabled(lang) {
-    lang = lang || global.defaultLanguage;
+async function lootListEnabled(lang = global.defaultLanguage) {
+    lang = lang.toLowerCase();
     if(!isLang(lang)) return false;
     let isGlobalEmpty = false;
 

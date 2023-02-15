@@ -33,7 +33,7 @@ async function init() {
 
 async function checkForUpdates() {
 
-    let uri = `https://fortniteapi.io/v1/loot/list?lang=en`;
+    let uri = `https://fortniteapi.io/v1/loot/list?lang=${global.defaultLanguage}`;
 
     let apiData;
     try {
