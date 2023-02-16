@@ -31,6 +31,14 @@ app.listen(global.PORT, async () => {
         await tests.all();
         process.exit(1);
     }
+
+    if(!process.argv.includes('--test') && !process.argv.includes('--dev')) {
+        await tests.http();
+    }
+
+    const SECONDS_BETWEEN_HTTP_TESTS = process.env['SECONDS-BETWEEN-HTTP-TESTS'] || 60;
+
+    setInterval(tests.http, SECONDS_BETWEEN_HTTP_TESTS * 1000);
 });
 
 process.on('uncaughtException', function (err) {
