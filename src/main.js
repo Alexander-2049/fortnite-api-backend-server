@@ -3,7 +3,7 @@ const app = express()
 const consoleLogMemoryUsage = require('./utils/memoryUsage');
 require('dotenv').config();
 
-require('./global');
+require('../global');
 
 
 
