@@ -3,6 +3,7 @@ global.appRoot = path.resolve(__dirname);
 global.PORT = process.env.PORT || 4747;
 global.localhost = `http://localhost:${global.PORT}`;
 global.languages = ['en', 'fr', 'ar', 'de', 'es', 'es-419', 'it', 'ja', 'ko', 'pl', 'pt-br', 'ru', 'tr'];
+global.regions = ['EU', 'NAE', 'NAW', 'ASIA', 'BR', 'ME', 'OCE', 'ALL'];
 global.defaultLanguage = 'en';
 global.defaultRegion = 'EU';
 

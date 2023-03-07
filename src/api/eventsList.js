@@ -96,8 +96,8 @@ async function eventsListActive(params) {
         lang = lang.toLowerCase();
         region = region.toUpperCase();
 
-    if(!isLang(lang)) return false;
-    if(!isRegion(region)) return false;
+    if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
+    if(!isRegion(region)) throw new Error(`"${region}" region does not exist`);
 
     let isGlobalEmpty = false;
 
@@ -151,8 +151,8 @@ async function eventsListLive(params) {
         lang = lang.toLowerCase();
         region = region.toUpperCase();
 
-    if(!isLang(lang)) return false;
-    if(!isRegion(region)) return false;
+    if(!isLang(lang)) throw new Error(`"${lang}" language does not exist`);
+    if(!isRegion(region)) throw new Error(`"${region}" region does not exist`);
 
     let isGlobalEmpty = false;
 

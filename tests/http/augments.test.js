@@ -1,13 +1,11 @@
 const fetchURL = require("../utils/fetchURL");
+const getPossibleLanguages = require("../utils/getPossibleLanguages");
+const getRandomElements = require("../utils/getRandomElements");
 
 async function augmentsTest() {
     const t0 = performance.now();
 
-    let languages = JSON.parse(JSON.stringify(global.languages));
-    for(let i = 0; i < global.languages.length; i++) {
-        const lang = global.languages[i];
-        languages.push(lang.toUpperCase());
-    }
+    let languages = getRandomElements(getPossibleLanguages());
 
     for(let i = 0; i < languages.length; i++) {
         const lang = languages[i];

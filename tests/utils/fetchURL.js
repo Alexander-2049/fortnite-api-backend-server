@@ -10,9 +10,10 @@ async function fetchURL(uri) {
         data = await data.json();
 
         const url = new URL(uri);
-        const filename = changeforbiddenSymbols(`${getCurrentTime()}${`${url.pathname}${url.search}`}.log`);
+        // const filename = changeforbiddenSymbols(`${getCurrentTime()}${`${url.pathname}${url.search}`}.log`);
+        const filename = `${getCurrentTime()}.log`;
 
-        await saveLog(data, filename);
+        // await saveLog(data, filename);
     } catch (err) {
         data = false;
         error = err;

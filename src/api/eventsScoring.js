@@ -7,10 +7,16 @@ const eventWindow = require('./eventWindow');
  */
 async function eventsScoring(windowId) {
     // TODO
-    if(!windowId) return false;
-    let apiData = await eventWindow(windowId);
-    if(!apiData) return false;
+    if(!windowId) throw new Error(`windowId is required`);
+    
+    let apiData;
 
+    try {
+        apiData = await eventWindow(windowId);
+    } catch (error) {
+        throw new Error(`failed to get event details - ${error.message}`);
+    }
+    
     // apiData.session.rules.scoring
     
 }

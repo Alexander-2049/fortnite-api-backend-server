@@ -1,4 +1,6 @@
 const augmentsTest = require("./http/augments.test");
+const eventsActiveTest = require("./http/events.active.test");
+const eventsTest = require("./http/events.test");
 
 const tests = {
     all: testAll,
@@ -13,6 +15,9 @@ async function testAll() {
     console.log(`[${today}] Tests are running...`);
 
     await ok(augmentsTest, "http/augments");
+    await ok(eventsTest, "http/events/list");
+    await ok(eventsActiveTest, "http/events/list/active");
+
 
     console.log(getResult(getFailCount()));
 }
@@ -25,6 +30,8 @@ async function testHTTP() {
     console.log(`[${today}] Tests are running...`);
 
     await ok(augmentsTest, "http/augments");
+    await ok(eventsTest, "http/events/list");
+    await ok(eventsActiveTest, "http/events/list/active");
 
     console.log(getResult(getFailCount()));
 }
